@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= page.title %></title>
+    </head>
+    <body>
+        <div class="nav">
+            <% for (var id in navigation.main ) { %>
+                <% renderItem(navigation.main[id]) %>
+            <% } %>
+            <% function renderItem (item) { %>
+                <li><a href="<%- item.route %>"><%- item.title %></a>
+                    <% if (item.children && Object.keys( item.children ).length > 0) { %>
+                    <ul>
+
+                        <% for (var id in item.children ) { %>
+                            <% renderItem(item.children[id]) %>
+                        <% } %>    
+                    </ul>
+                    <% } %>
+                </li>
+            <% } %>
+        </div>
+        <div class="content">
+            <%- slots.content %>
+        </div>
+    </body>
+</html>

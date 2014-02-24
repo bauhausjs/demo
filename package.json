@@ -1,0 +1,36 @@
+{
+  "name": "bauhaus-demo",
+  "version": "0.0.1",
+  "description": "Demo site of BauhausJS",
+  "main": "index.js",
+  "private": true,
+  "dependencies": {
+    "bauhausjs": "~0.1.0alpha",
+    "express": "~3.4.8",
+    "mongoose": "~3.8.7",
+    "debug": "~0.7.4",
+    "connect-flash": "~0.1.1",
+    "connect-mongo": "~0.4.0",
+    "passport": "~0.2.0",
+    "passport-local": "~0.1.6",
+    "passport-local-mongoose": "~0.2.6",
+    "ejs": "~0.8.5",
+    "baucis": "~0.15.1",
+    "mocha": "~1.17.1",
+    "mongoose-materialized": "~0.1.6",
+    "event-stream": "^3.1.0",
+    "gulp-replace": "^0.2.0",
+    "gulp-concat": "^2.1.7",
+    "gulp-inject": "^0.4.0",
+    "gulp-livereload": "^1.1.1",
+    "gulp": "^3.5.2",
+    "tiny-lr": "0.0.5",
+    "gulp-uglify": "^0.2.1",
+    "gulp-less": "^1.2.1",
+    "gulp-kss": "0.0.2",
+    "gulp-util": "^2.2.14"
+  },
+  "devDependencies": {
+    "mocha": "~1.17.1"
+  }
+}
