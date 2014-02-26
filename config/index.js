@@ -4,15 +4,18 @@ var contentTypes = require('./contentTypes'),
 
 // Build configuration
 var bauhausConfig = module.exports = {
-    port: 3000,
+    port: Number(process.env.PORT || 1919),
     env: process.env.NODE_ENV || 'development',
 
-    mongodb: 'mongodb://localhost/bauhausjs_example',
+    mongodb: process.env.MONGOHQ_URL || 'mongodb://localhost/bauhausjs_example',
 
     contentTypes: contentTypes,
     pageTypes: pageTypes,
 
     documents: {},
+    addDocument: function (name, config) {
+        this.documents[name] = config;
+    },
 
     customUserFields: customUserFields,
     addCustomUserField: function (fields) {
