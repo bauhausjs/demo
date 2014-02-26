@@ -5,7 +5,7 @@
   "main": "index.js",
   "private": true,
   "dependencies": {
-    "bauhausjs": "~0.1.0alpha",
+    "bauhausjs": "~0.1.0",
     "express": "~3.4.8",
     "mongoose": "~3.8.7",
     "debug": "~0.7.4",
@@ -27,8 +27,9 @@
     "tiny-lr": "0.0.5",
     "gulp-uglify": "^0.2.1",
     "gulp-less": "^1.2.1",
-    "gulp-kss": "0.0.2",
-    "gulp-util": "^2.2.14"
+    "gulp-kss": "~0.0.2",
+    "gulp-util": "^2.2.14",
+    "gulp-component-loader": "~0.0.1"
   },
   "devDependencies": {
     "mocha": "~1.17.1"
