@@ -2,7 +2,8 @@ var express = require('express'),
     mongoose = require('mongoose'),
     flash = require('connect-flash'),
     session = require('connect-mongo')(express),
-    passport = require('../config/passport');
+    passport = require('../config/passport'),
+    securityMiddleware = require('bauhausjs/security/middleware');
 
 module.exports = function (bauhausConfig) {
     var server = express();
@@ -20,6 +21,7 @@ module.exports = function (bauhausConfig) {
     server.use(flash());
     server.use(passport.initialize());
     server.use(passport.session());
+    server.use(securityMiddleware.loadUser);
 
     return server;
 };

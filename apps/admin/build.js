@@ -11,7 +11,8 @@ var gulp = require('gulp'),
     lr = require('tiny-lr'),
     livereload = require('gulp-livereload'),
     server = lr(),
-    path = require('path');
+    path = require('path'),
+    debug = require('debug')('bauhaus:admin:build');
 
 module.exports = function (options, components) {
     // cache name of output scripts and styles to inject them into html
@@ -56,6 +57,9 @@ module.exports = function (options, components) {
         'node_modules/bauhausjs/document/client/component.json'
     ];
 
+    debug('Started build with config', config);
+    debug('Building components', components);
+
     gulp.task('styles', function () {
         styleCache = [];
         return gulp.src(components)
@@ -68,7 +72,7 @@ module.exports = function (options, components) {
               for (var f in files) {
                   styleCache.push(files[f].path);
               }
-          }))
+          }));
     });
 
     gulp.task('scripts', function () {
@@ -101,36 +105,40 @@ module.exports = function (options, components) {
     });
 
     gulp.task('index.ejs', ['scripts', 'styles'], function (src) {
-        var indexSrc = __dirname + '../../../node_modules/bauhausjs/backend/templates/index.ejs',
-            indexDest = __dirname + '/build/templates/';
+        var indexSrc =  path.resolve(__dirname, '../../node_modules/bauhausjs/backend/templates/index.ejs'),
+            indexDest = path.join(__dirname, 'build/templates/');
 
         var assetScr = styleCache.concat(scriptCache);
 
         var angularModules = '["' + config.angular.modules.join('","') + '"]';
+        var ignorePaths = [];
+        ignorePaths.push( path.join(__dirname, 'apps/admin/build/client/'));
+        ignorePaths.push( 'apps/admin/build/client/' );
+        ignorePaths.push( ignorePaths[0].split(path.sep).join('/') );
 
         return gulp.src(assetScr, {read: false})
-            .pipe(gulpinject(indexSrc, { ignorePath: 'apps/admin/build/client/', addRootSlash: false }))
+            .pipe(gulpinject(indexSrc, { ignorePath: ignorePaths, addRootSlash: false }))
             .pipe(gulpreplace(/(angular\.module\(\'bauhaus\'\, )(\[\])(\))/, '$1' + angularModules + '$3'))
             .pipe(gulp.dest(indexDest));
     });
 
     gulp.task('styleguide', function () {
         config.styleguide = {
-            src: [__dirname + '../../../node_modules/bauhausjs/backend/client/css/*.less']
+            src: [path.resolve(__dirname, '../../../node_modules/bauhausjs/backend/client/css/*.less')]
         }
 
         gulp.src(config.styleguide.src)
             .pipe(gulpkss({
-                overview: __dirname + '/client/css/styleguide.md'
+                overview: path.join(__dirname, 'client/css/styleguide.md')
             }))
-            .pipe(gulp.dest(__dirname + '/build/client/styleguide/'));
+            .pipe(gulp.dest( path.join(__dirname, 'build/client/styleguide/')));
 
         // Concat and compile all your styles for correct rendering of the styleguide.
         gulp.src(components)
          .pipe(gulpcomponentloader({types: ['styles']}))
          .pipe(gulpless({paths: config.less.paths }))
          .pipe(gulpconcat('public/style.css'))
-         .pipe(gulp.dest(__dirname + '/build/client/styleguide/'));
+         .pipe(gulp.dest( path.join(__dirname, 'build/client/styleguide/')));
     });
 
     gulp.task('watch', ['styles', 'scripts', 'html'], function () {

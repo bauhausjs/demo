@@ -15,20 +15,20 @@ module.exports = function (bauhausConfig) {
             modules: ['ngResource', 'ngRoute', 'slugifier', 'bauhaus.general', 'bauhaus.dashboard', 'bauhaus.page', 'bauhaus.user', 'bauhaus.role', 'bauhaus.document']
         },
         html: {
-            dest: __dirname +  '/build/client'
+            dest: path.join(__dirname, 'build/client')
         },
         copy: {
-            dest: __dirname +  '/build/client'
+            dest: path.join(__dirname, 'build/client')
         },
         js: {
-            dest: __dirname +  '/build/client'
+            dest: path.join(__dirname, 'build/client')
         },
         css: {
             concat: 'css/all.css',
-            dest: __dirname +  '/build/client'
+            dest: path.join(__dirname, 'build/client')
         },
         less: {
-            paths: [ __dirname + '/client/css' ]
+            paths: [ path.join(__dirname, 'client/css') ]
         }
     };
 
@@ -45,7 +45,7 @@ module.exports = function (bauhausConfig) {
     routes(app, templateDir);
 
     // add client as static folder
-    app.use(express.static(__dirname + '/build/client'));
+    app.use(express.static( path.join(__dirname, 'build/client')));
 
     var passportStrategyConf = { 
         successRedirect: route + '/',

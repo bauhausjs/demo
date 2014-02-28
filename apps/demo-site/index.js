@@ -1,6 +1,7 @@
 var express = require('express'),
     passport = require('passport'),
-    renderStack = require('bauhausjs/page/middleware').renderStack;
+    renderStack = require('bauhausjs/page/middleware').renderStack,
+    install = require('./install');
 
 module.exports = function (bauhausConfig) {
     var app = express();

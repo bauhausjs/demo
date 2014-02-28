@@ -4,8 +4,11 @@
   "description": "Demo site of BauhausJS",
   "main": "index.js",
   "private": true,
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
-    "bauhausjs": "~0.1.0",
+    "bauhausjs": "~0.1.1",
     "express": "~3.4.8",
     "mongoose": "~3.8.7",
     "debug": "~0.7.4",
